@@ -45,9 +45,9 @@ type
 
 procedure leerDesarrollador(var d: desarrollador);
 begin
-  write('Ingresar codigo de proyecto: ');readln(d.codProyecto);
+  write('Ingresar codigo de proyecto (1-1000): ');readln(d.codProyecto);
   if (d.codProyecto <> -1) then begin
-    write('Ingresar nombre del proyecto (1-1000): ');readln(d.nomProyecto);
+    write('Ingresar nombre del proyecto: ');readln(d.nomProyecto);
     write('Ingresar rol del desarrollador (1-5): ');readln(d.rol);
     write('Ingresar pais de residencia: ');readln(d.pais);
     write('Ingresar cantidad de horas trabajadas: ');readln(d.cantHoras);
@@ -160,8 +160,16 @@ var
   i: integer;
 begin
   for i := 1 to dimF do
-    if (v[i] > 0) then
+    if (v[i] > 0) then { si es 0 no lo imprime para que no imprima muchas lineas sin sentido }
       writeln('Cantidad de arquitectos de software del proyecto ', i ,': ', v[i]);
+end;
+
+procedure imprimirInversiones(v: vecInverProyectos);
+var
+  i: integer;
+begin
+  for i := 1 to dimF do
+    write(v[i]:0:2,' ');
 end;
 
 var
@@ -180,4 +188,6 @@ begin
   writeln('Cantidad de horas trabajadas por administradores de bases de datos: ', calcularHorasAdminBases(v, dimL));
   writeln('Proyecto con menor monto invertido: ', calcularProyectoMinMonto(vInversiones));
   imprimirCantidadArquitectosSoftwareProyectos(vArcSoftware);
+  writeln('Inversiones de cada proyecto');
+  imprimirInversiones(vInversiones);
 end.
