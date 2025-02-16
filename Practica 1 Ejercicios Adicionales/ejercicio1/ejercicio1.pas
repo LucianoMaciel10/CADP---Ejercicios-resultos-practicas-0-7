@@ -9,6 +9,7 @@
   ● Cantidad de empresas con inversiones de más de $50000
 }
 program ejercicio1;
+
 var
   cod, codMax, cantInver, cantEmpInverSup50, i: integer;
   monto, prom, totalMax, totalInver: real;
