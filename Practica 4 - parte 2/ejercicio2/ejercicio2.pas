@@ -41,11 +41,11 @@ begin
     dimL := dimL - 1;
     writeln('Se elimino correctamente el nombre ', nom);
     eliminarNombre := true;
-    exit;
   end
-  else
+  else begin
     writeln('No se encontro el nombre ', nom ,' en el vector');
-    eliminarNombre := true;
+    eliminarNombre := false;
+  end;
 end;
 
 procedure imprimirVector(v: vAlumnos; dimL: integer);
@@ -55,6 +55,22 @@ begin
   for i := 1 to dimL do
     write(v[i],' ');
   writeln();
+end;
+
+function insertarPos4(var v: vAlumnos; var dimL: integer; nom: string): boolean;
+var
+  i, aux: integer;
+begin
+  if (dimL >= 4) and (dimL + 1 <= dimF) then begin
+    for i := 4 to dimL do begin
+      aux := v[i + 1];
+      v[i + 1] := v[i];
+      v[i + 2] := aux;
+    end;
+    v[4] := nom;
+  end
+  else
+
 end;
 
 var

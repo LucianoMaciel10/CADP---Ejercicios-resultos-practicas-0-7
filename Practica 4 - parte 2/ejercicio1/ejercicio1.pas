@@ -25,34 +25,16 @@ begin
   end;
 end;
 
-function estaEnElVector(v: vNumeros; dimL, num: integer): boolean;
+function busqueda(v: vNumeros; dimL, num: integer): boolean;
 var 
   i: integer;
-  ok: boolean;
 begin
-  ok := false; i := 1;
-  while (i <= dimL) and (not ok) do begin
-    if (v[i] <> num) then
-      i := i + 1
-    else
-      ok := true;
+  i := 1;
+  while (i <= dimL) and (v[i] <> num) do begin
+    writeln(v[i],' = ',num);
+    i := i + 1;
   end;
-  estaEnElVector := ok;
-end;
-
-procedure ordernarVector(var v: vNumeros; dimL: integer);
-var
-  aux, pos, i: integer;
-begin
-  for i:= 1 to dimL do begin
-    pos := 1;
-    while (pos + 1 <= dimL) and (v[pos] > v[pos+1]) do begin
-      aux := v[pos];
-      v[pos] := v[pos+1];
-      v[pos+1] := aux;
-      pos := pos + 1; 
-    end;
-  end;
+  busqueda := (i <= dimL) and (v[i] = num);
 end;
 
 procedure imprimirVector(v: vNumeros; dimL: integer);
@@ -66,21 +48,17 @@ end;
 
 function busquedaDicotomica(v: vNumeros; dimL, num: integer): boolean;
 var
-  ok: boolean;
   pri, ult, medio: integer;
 begin
   pri := 1; ult := dimL; medio := (pri + ult) DIV 2;
-  while (pri <= ult) and (v[medio] <> num) do begin
+  while (pri <= ult) and (v[medio] <> num) do begin 
     if (v[medio] > num) then
       ult := medio - 1
     else
       pri := medio + 1;
     medio := (pri + ult) DIV 2;
   end;
-  if (v[medio] = num) then
-    busquedaDicotomica := true
-  else
-    busquedaDicotomica := false;
+  busquedaDicotomica := (pri <= ult) and (v[medio] = num);
 end;
   
 var
@@ -91,11 +69,10 @@ begin
   cargarVector(v, dimL);
   imprimirVector(v, dimL);
   write('Ingrese un valor para buscarlo en el vector: ');readln(num);
-  if (estaEnElVector(v, dimL, num)) then
+  if (busqueda(v, dimL, num)) then
     writeln('El numero ', num ,' esta en el vector')
   else
     writeln('El numero ', num ,' no esta en el vector');
-  ordernarVector(v, dimL);
   imprimirVector(v, dimL);
   write('Ingrese un valor para buscarlo en el vector: ');readln(num);
   if (busquedaDicotomica(v, dimL, num)) then
