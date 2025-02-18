@@ -89,7 +89,7 @@ var
   i, pos: integer;
 begin
   pos := 1;
-  while (pos <= dimL) do begin
+  while (pos <= dimL) and (v[pos].cod <= 500) do begin
     if (v[pos].cod >= 0) and (v[pos].cod <= 500) then begin
       for i := pos to dimL - 1 do
         v[i] := v[i + 1];
