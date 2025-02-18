@@ -59,18 +59,36 @@ end;
 
 function insertarPos4(var v: vAlumnos; var dimL: integer; nom: string): boolean;
 var
-  i, aux: integer;
+  i: integer;
 begin
-  if (dimL >= 4) and (dimL + 1 <= dimF) then begin
-    for i := 4 to dimL do begin
-      aux := v[i + 1];
+  if (dimL >= 3) and (dimL + 1 <= dimF) then begin
+    for i := dimL downto 4 do 
       v[i + 1] := v[i];
-      v[i + 2] := aux;
-    end;
     v[4] := nom;
+    dimL := dimL + 1;
+    insertarPos4 := true;
   end
-  else
+  else begin
+    if (dimL < 3) then
+      writeln('No se pudo insertar en la posicion 4 porque el vector tiene menos de 3 elementos')
+    else
+      writeln('No hay espacio para agregar un nuevo alumno en el vector');
+    insertarPos4 := false;
+  end;
+end;
 
+function agregarAlVector(var v: vAlumnos; var dimL: integer; nom: string): boolean;
+begin
+  if (dimL < dimF) then begin
+    dimL := dimL + 1;
+    v[dimL] := nom;
+    writeln('Se agrego el nombre ', nom ,' en la posicion ', dimL ,' del vector');
+    agregarAlVector := true;
+  end
+  else begin
+    writeln('No hay espacio para agregar un nuevo alumno en el vector');
+    agregarAlVector := false;
+  end;
 end;
 
 var
@@ -81,7 +99,13 @@ begin
   dimL := 0;
   cargarVector(v, dimL);
   imprimirVector(v, dimL);
-  write('Ingrese un nombre para eliminarlo del vector: ');readln(nom);
-  eliminarNombre(v, dimL, nom);
+  // write('Ingrese un nombre para eliminarlo del vector: ');readln(nom);
+  // eliminarNombre(v, dimL, nom);
+  // imprimirVector(v, dimL);
+  write('Ingrese un nombre para insertarlo en la posicion 4 del vector: ');readln(nom);
+  insertarPos4(v, dimL, nom);
   imprimirVector(v, dimL);
+  // write('Ingrese un nombre para agregarlo al vector: ');readln(nom);
+  // agregarAlVector(v, dimL, nom);
+  // imprimirVector(v, dimL);
 end.
