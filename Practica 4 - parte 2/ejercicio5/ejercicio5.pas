@@ -160,9 +160,9 @@ end;
 
 var
   v: vecClientes;
-  vCateg: vecCategorias;
-  vCiud: vecCiudades;
   vMCiud: vecMaxCiudades;
+  vCiud: vecCiudades;
+  vCateg: vecCategorias;
 begin
   cargarClientes(v);
   calcularContratosPorMesYporAno(v);
