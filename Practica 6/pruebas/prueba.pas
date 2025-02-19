@@ -72,16 +72,88 @@ begin
   end;
 end;
 
+function buscar(l: listaN; num: integer): boolean;
+begin
+  while (l <> nil) and (l^.dato <> num) do 
+    l := l^.sig;
+  buscar := (l <> nil) and (l^.dato = num);
+end;
+
+procedure eliminar(var l: listaN; num: integer);
 var
-  pri, ult: listaN;
+  act, ant: listaN;
+begin
+  act := l;
+  while (act <> nil) and (act^.dato <> num) do begin
+    ant := act;
+    act := act^.sig;
+  end;
+  if (act <> nil) then begin
+    if (act = l) then 
+      l := l^.sig
+    else 
+      ant^.sig := act^.sig;
+    dispose(act);
+  end;
+end;
+
+procedure eliminarTodasLasOcurrencias(var l: listaN; num: integer);
+var
+  act, ant: listaN;
+begin
+  act := l;
+  while (act <> nil) do begin
+    act := l;
+    while (act <> nil) and (act^.dato <> num) do begin
+      ant := act;
+      act := act^.sig;
+    end;
+    if (act <> nil) then begin
+      if (act = l) then 
+        l := l^.sig
+      else 
+        ant^.sig := act^.sig;
+      dispose(act);
+    end;
+  end;
+end;
+
+procedure insertarOrdenado(var l: listaN; num: integer);
+var
+  nue, ant, act: listaN;
+begin
+  new(nue); nue^.dato := num; nue^.sig := nil;
+  if (l  = nil) then 
+    l := nue
+  else begin
+    act := l;
+    while (act <> nil) and (act^.dato < num) do begin
+      ant := act;
+      act := act^.sig;
+    end;
+    if (act = l) then begin
+      nue^.sig := l;
+      l := nue;
+    end
+    else begin
+      ant^.sig := nue;
+      nue^.sig := act;
+    end;
+  end;
+end;
+
+var
+  l: listaN;
   num: integer;
 begin
-  pri := nil; 
+  l := nil; 
   write('Ingrese un numero: ');readln(num);
   while (num <> -1) do begin
-    agregarAtrasOpcion2(pri, ult, num);
+    agregarAtras(l, num);
     write('Ingrese un numero: ');readln(num);
   end;
-  contalElTotal(pri);
-  imprimirLista(pri);
+  imprimirLista(l);
+  write('Ingrese un numero para eliminarlo de la lista: ');readln(num);
+  eliminarTodasLasOcurrencias(l, num);
+  imprimirLista(l);
 end.
