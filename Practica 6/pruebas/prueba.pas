@@ -126,7 +126,7 @@ begin
   if (l  = nil) then 
     l := nue
   else begin
-    act := l;
+    act := l; ant := l;
     while (act <> nil) and (act^.dato < num) do begin
       ant := act;
       act := act^.sig;
