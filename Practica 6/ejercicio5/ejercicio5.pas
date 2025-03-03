@@ -7,7 +7,6 @@
   c. Código de los dos productos más económicos.
 }
 program ejercicio5;
-type
   producto = record
     cod, stockAct, stockMin: integer;
     descri: string;

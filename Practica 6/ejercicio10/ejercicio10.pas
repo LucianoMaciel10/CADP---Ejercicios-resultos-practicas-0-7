@@ -42,7 +42,6 @@ begin
   end;
 end;
 
-
 procedure atenderClientes(var l: lista);
 
   procedure atenderCliente(var l: lista;var num, dni: longint);
