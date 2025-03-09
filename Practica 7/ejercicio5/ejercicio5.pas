@@ -52,7 +52,7 @@ procedure cargarCamiones(var v: vecCamiones);
       strRandom := strRandom + caracteres[Random(Length(caracteres)) + 1];
     c.patente := strRandom;
     c.capacidad := (Random(61) + 20) + Random * 0.9;
-    c.anioFab := Random(21) + 2015;
+    c.anioFab := Random(11) + 2010;
   end;
 
 var
@@ -73,7 +73,7 @@ procedure cargarViajes(var l: lista);
   begin
     new(nue); nue^.dato := v;
     ant := l; act := l;
-    while (act <> nil) and (act^.dato.codCamion <> v.cod) do begin
+    while (act <> nil) and (act^.dato.codCamion <> v.codCamion) do begin
       ant := act; act := act^.sig;
     end;
     if (ant = act) then
@@ -95,7 +95,7 @@ begin
     strRandom := '';
     for j := 1 to 6 do
       strRandom := strRandom + caracteres[Random(Length(caracteres)) + 1];
-    v.DNI := Random(15000000) + 25000000;
+    v.DNI := Random(1500) + 2500;
     v.destino := strRandom; 
     v.codCamion := Random(cantCamiones) + 1; 
     v.distancia := Random(35) + 15;
@@ -119,17 +119,18 @@ procedure recorrerLista(l: lista; v: vecCamiones);
 
   procedure descomponerDNI(cod: integer; dni: longint);
   var
-    seguir: boolean;
-    num, dig: integer;
+    num: longint;
+    dig: integer;
   begin
-    num := dni; seguir := true;
-    while (num <> 0) and (seguir) do begin
+    num := dni;
+    while (num <> 0) do begin
       dig := num MOD 10;
-      if (dig MOD 2 <> 0) then
-        seguir := false;
-      num := num DIV 10;
+      if (dig MOD 2 = 0) then
+        break
+      else
+        num := num DIV 10;
     end;
-    if (seguir) then
+    if (num = 0) then
       writeln('El chofer del viaje ', cod ,' tiene solo digitos impares en su DNI');
   end;
 
